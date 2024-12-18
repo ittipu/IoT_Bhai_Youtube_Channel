@@ -20,36 +20,30 @@ All videos are designed to help you learn and implement IoT solutions step-by-st
 ---
 
 ## Repository Structure
-This repository is organized by video series and topics for easier navigation:
+This repository is organized into folders based on the video series and topics:
 
-### **1. Robotics for Kids**
-- Obstacle-Avoiding Robot
-  - [Introduction Video](./robotics-for-kids/intro/README.md)
-  - [Arduino IDE Setup](./robotics-for-kids/arduino-setup/README.md)
-  - [HC-SR04 Ultrasonic Sensor Testing](./robotics-for-kids/ultrasonic-sensor/README.md)
-  - [Servo Motor Testing](./robotics-for-kids/servo-motor/README.md)
-  - [DC Motor & L293D Testing](./robotics-for-kids/dc-motor/README.md)
-  - [Final Code Upload & Testing](./robotics-for-kids/final-testing/README.md)
+### **1. Ai-Thinker A9G Series**
+Code and projects using the Ai-Thinker A9G GSM/GPS module.
 
-### **2. IoT with ESP32**
-- [How to Scan I2C Addresses Using ESP32](./esp32-i2c-scan/README.md)
-- [Full IoT Development Tutorial](./iot-unlocked/README.md)
+### **2. ESP32 Advanced**
+Advanced projects and experiments using the ESP32 board.
 
-### **3. GSM/GPS Projects**
-- [A9G GSM/GPS with MicroPython](./a9g-gsm-gps/README.md)
-- [Blynk Integration with SIM800L](./sim800l-blynk/README.md)
+### **3. Interfacing Sensors with ESP32**
+Code and examples for integrating various sensors with ESP32.
 
-### **4. Other Topics**
-- [Modbus TCP with ESP32](./modbus-tcp/README.md)
-- [MQTT Basics](./mqtt/README.md)
+### **4. Obstacle Avoiding Robot**
+Projects and tutorials for building an obstacle-avoiding robot using Arduino.
+
+### **5. SIM800L With ESP32**
+Projects demonstrating SIM800L GSM module integration with ESP32.
 
 ---
 
 ## How to Use This Repository
-1. Navigate to the relevant folder based on the video or topic.
+1. Navigate to the relevant folder based on the project topic.
 2. Download or clone the repository:
    ```bash
-   git clone https://github.com/your-username/iot-lab.git
+   git clone https://github.com/your-username/iot-lab-youtube-channel.git
    ```
 3. Follow the instructions in the respective `README.md` files for each project.
 
