@@ -1,6 +1,7 @@
 # IoT Lab 
 
 📺 **YouTube Channel**: [IoT Lab](https://www.youtube.com/@IoTLab-p8o)
+🌐 **Facebook**: [IoT Lab on Facebook](https://www.facebook.com/share/nTuVQMjsZEqcrpcR/)
 
 Welcome to the official GitHub repository for **IoT Lab**! 🎉
 
@@ -53,7 +54,8 @@ Projects demonstrating SIM800L GSM module integration with ESP32.
 
 ## Stay Connected
 - 📺 **YouTube Channel**: [IoT Lab](https://www.youtube.com/@IoTLab-p8o)
-- 📧 **Email**: iotlab@example.com
+- 🌐 **Facebook**: [IoT Lab on Facebook](https://www.facebook.com/share/nTuVQMjsZEqcrpcR/)
+- 📧 **Email**: iotlabbd24@gmail.com
 
 Don't forget to **like**, **comment**, and **subscribe** to the channel for more exciting IoT projects and tutorials!
 
