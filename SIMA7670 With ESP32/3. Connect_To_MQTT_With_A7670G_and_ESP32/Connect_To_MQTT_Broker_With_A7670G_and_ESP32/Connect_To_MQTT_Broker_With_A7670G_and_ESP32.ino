@@ -1,0 +1,180 @@
+#define TINY_GSM_MODEM_A7670
+#define SerialMon Serial
+#define SerialAT Serial1
+#define TINY_GSM_DEBUG SerialMon
+#define GSM_PIN ""
+
+#include <PubSubClient.h>
+#include <TinyGsmClient.h>
+
+const char apn[] = "internet";
+const char gprsUser[] = "";
+const char gprsPass[] = "";
+
+const char *mqtt_broker = "172.236.236.214";
+int port = 1883;
+const char *mqtt_username = "user1";
+const char *mqtt_password = "user1";
+const char *publish_topic = "device/status";
+const char *subs_topic = "device/command";
+
+// === SIM7600 Pin Definitions ===
+#define MODEM_RESET_PIN 5
+#define MODEM_PWKEY 4
+#define MODEM_POWER_ON 12
+#define MODEM_TX 26
+#define MODEM_RX 27
+#define MODEM_RESET_LEVEL HIGH
+#define BUILTIN_LED 2
+
+#ifdef DUMP_AT_COMMANDS
+#include <StreamDebugger.h>
+StreamDebugger debugger(SerialAT, Serial);
+TinyGsm modem(debugger);
+#else
+TinyGsm modem(SerialAT);
+#endif
+
+
+TinyGsmClient client(modem);
+PubSubClient mqtt(client);
+uint32_t lastReconnectAttempt = 0;
+long lastMsg = 0;
+
+void mqttCallback(char *topic, byte *message, unsigned int len) {
+  Serial.print("Message arrived on topic: ");
+  Serial.print(topic);
+  Serial.print(". Message: ");
+  String messageTemp;
+
+  for (int i = 0; i < len; i++) {
+    Serial.print((char)message[i]);
+    messageTemp += (char)message[i];
+  }
+  Serial.println();
+}
+
+boolean mqttConnect() {
+  SerialMon.print("Connecting to ");
+  SerialMon.print(mqtt_broker);
+  boolean status = mqtt.connect("GsmClientN", mqtt_username, mqtt_password);
+  if (status == false) {
+    SerialMon.println(" fail");
+    ESP.restart();
+    return false;
+  }
+  SerialMon.println(" success");
+  mqtt.subscribe(subs_topic);
+  return mqtt.connected();
+}
+
+void setup() {
+  SerialMon.begin(115200);
+  // Power ON the modem
+  pinMode(MODEM_POWER_ON, OUTPUT);
+  pinMode(BUILTIN_LED, OUTPUT);
+  pinMode(BUILTIN_LED, LOW);
+
+  digitalWrite(MODEM_POWER_ON, HIGH);
+
+  // Hardware reset
+  pinMode(MODEM_RESET_PIN, OUTPUT);
+  digitalWrite(MODEM_RESET_PIN, !MODEM_RESET_LEVEL);
+  delay(100);
+  digitalWrite(MODEM_RESET_PIN, MODEM_RESET_LEVEL);
+  delay(2600);
+  digitalWrite(MODEM_RESET_PIN, !MODEM_RESET_LEVEL);
+
+  // Toggle PWRKEY to power up the modem
+  pinMode(MODEM_PWKEY, OUTPUT);
+  digitalWrite(MODEM_PWKEY, LOW);
+  delay(100);
+  digitalWrite(MODEM_PWKEY, HIGH);
+  delay(1000);
+  digitalWrite(MODEM_PWKEY, LOW);
+
+  SerialMon.println("Wait ...");
+  SerialAT.begin(115200, SERIAL_8N1, MODEM_RX, MODEM_TX);
+  delay(3000);
+
+  SerialMon.println("Initializing modem...");
+  if (!modem.init()) {
+    SerialMon.println("Failed to restart modem, delaying 10s and retrying");
+    delay(10000);
+    return;
+  }
+
+  String modemInfo = modem.getModemInfo();
+  SerialMon.print("Modem Info: ");
+  SerialMon.println(modemInfo);
+  // Unlock SIM if needed
+  if (GSM_PIN && modem.getSimStatus() != 3) {
+    modem.simUnlock(GSM_PIN);
+  }
+  String ccid = modem.getSimCCID();
+  DBG("CCID:", ccid);
+  String imei = modem.getIMEI();
+  DBG("IMEI:", imei);
+  String imsi = modem.getIMSI();
+  DBG("IMSI:", imsi);
+  String cop = modem.getOperator();
+  DBG("Operator:", cop);
+
+  int csq = modem.getSignalQuality();
+  DBG("Signal quality:", csq);
+
+  SerialMon.print("Waiting for network...");
+  if (!modem.waitForNetwork()) {
+    SerialMon.println(" fail");
+    delay(10000);
+    return;
+  }
+  SerialMon.println(" success");
+  if (modem.isNetworkConnected()) {
+    SerialMon.println("Network connected");
+  }
+  SerialMon.print("Connecting to APN: ");
+  SerialMon.print(apn);
+  if (!modem.gprsConnect(apn, gprsUser, gprsPass)) {
+    SerialMon.println(" fail");
+    ESP.restart();
+  }
+  SerialMon.println(" OK");
+  if (modem.isGprsConnected()) {
+    SerialMon.println("GPRS connected");
+  }
+  IPAddress local = modem.localIP();
+  DBG("Local IP:", local);
+
+  DBG("Asking modem to sync with NTP");
+  modem.NTPServerSync("132.163.96.5", 20);
+  // MQTT Broker setup
+  mqtt.setServer(mqtt_broker, port);
+  mqtt.setCallback(mqttCallback);
+}
+
+void loop() {
+  if (!mqtt.connected()) {
+    SerialMon.println("=== MQTT NOT CONNECTED ===");
+    // Reconnect every 10 seconds
+    uint32_t t = millis();
+    if (t - lastReconnectAttempt > 10000L) {
+      lastReconnectAttempt = t;
+      if (mqttConnect()) {
+        lastReconnectAttempt = 0;
+      }
+    }
+    delay(100);
+    return;
+  }
+  long now = millis();
+  if (now - lastMsg > 10000) {
+    lastMsg = now;
+    send_data();
+  }
+  mqtt.loop();
+}
+
+void send_data() {
+  mqtt.publish(publish_topic, "Hello From Device");
+}
