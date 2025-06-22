@@ -1,16 +1,16 @@
-# IoT Lab 
+# IoT Bhai 
 
-📺 **YouTube Channel**: [IoT Lab](https://www.youtube.com/@IoTLab-p8o)
-🌐 **Facebook**: [IoT Lab on Facebook](https://www.facebook.com/share/nTuVQMjsZEqcrpcR/)
+📺 **YouTube Channel**: [IoT Bhai](https://www.youtube.com/@iotbhai)
+🌐 **Facebook**: [IoT Bhai on Facebook](https://www.facebook.com/share/127pjEp7Fuh/)
 
-Welcome to the official GitHub repository for **IoT Lab**! 🎉
+Welcome to the official GitHub repository for **IoT Bhai**! 🎉
 
 This repository contains all the code and resources used in the experiments and tutorials featured on my YouTube channel. Whether you're a beginner exploring IoT or an experienced developer, you'll find projects and examples to enhance your IoT journey.
 
 ---
 
 ## About the Channel
-**IoT Lab** is dedicated to simplifying Internet of Things (IoT) concepts, projects, and tutorials. We cover:
+**IoT Bhai** is dedicated to simplifying Internet of Things (IoT) concepts, projects, and tutorials. We cover:
 
 - IoT development using ESP32, Arduino, and other microcontrollers.
 - GSM, GPS, LoRa, and Modbus communication.
@@ -53,8 +53,8 @@ Projects demonstrating SIM800L GSM module integration with ESP32.
 ---
 
 ## Stay Connected
-- 📺 **YouTube Channel**: [IoT Lab](https://www.youtube.com/@IoTLab-p8o)
-- 🌐 **Facebook**: [IoT Lab on Facebook](https://www.facebook.com/share/nTuVQMjsZEqcrpcR/)
+- 📺 **YouTube Channel**: [IoT Bhai](https://www.youtube.com/@iotbhai)
+- 🌐 **Facebook**: [IoT Bhai on Facebook](https://www.facebook.com/share/127pjEp7Fuh/)
 - 📧 **Email**: iotlabbd24@gmail.com
 
 Don't forget to **like**, **comment**, and **subscribe** to the channel for more exciting IoT projects and tutorials!
