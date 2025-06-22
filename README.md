@@ -46,7 +46,7 @@ Projects demonstrating SIM800L GSM module integration with ESP32.
 1. Navigate to the relevant folder based on the project topic.
 2. Download or clone the repository:
    ```bash
-   git clone https://github.com/your-username/iot-lab-youtube-channel.git
+   git clone https://github.com/ittipu/IoT_Bhai_Youtube_Channel
    ```
 3. Follow the instructions in the respective `README.md` files for each project.
 
