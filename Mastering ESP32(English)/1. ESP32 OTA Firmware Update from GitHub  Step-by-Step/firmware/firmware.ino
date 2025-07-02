@@ -3,11 +3,11 @@
 #include <Update.h>
 
 // WiFi credentials
-const char* ssid = "IoT";
-const char* password = "tipu1234@";
+const char* ssid = ""; // put your wifi name
+const char* password = ""; // put your wifi password
 
-const char* firmwareUrl = "https://github.com/ittipu/test_esp32_ota/releases/download/esp32/test_ota_firmware_v1_0_1.ino.bin";
-const char* versionUrl = "https://raw.githubusercontent.com/ittipu/test_esp32_ota/refs/heads/main/version.txt";
+const char* firmwareUrl = "https://github.com/ittipu/esp32_firmware/releases/download/esp32_firmware/firmware.ino.bin";
+const char* versionUrl = "https://raw.githubusercontent.com/ittipu/esp32_firmware/refs/heads/main/version.txt";
 
 // Current firmware version
 const char* currentFirmwareVersion = "1.0.1";
