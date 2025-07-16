@@ -4,7 +4,7 @@
 #define TINY_GSM_DEBUG SerialMon
 #define GSM_PIN ""
 
-#define ADMIN_NUMBER "+8801715497977"
+#define ADMIN_NUMBER "" // put your phone number with country code
 #define TINY_GSM_DEBUG SerialMon
 
 #include <TinyGsmClient.h>
