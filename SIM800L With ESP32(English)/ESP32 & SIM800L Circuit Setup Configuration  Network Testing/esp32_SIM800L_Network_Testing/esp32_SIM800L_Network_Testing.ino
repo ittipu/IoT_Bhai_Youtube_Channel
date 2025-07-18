@@ -4,13 +4,9 @@
 #define TINY_GSM_DEBUG SerialMon
 #define GSM_PIN ""
 
-
 #define NTP_SERVER "132.163.96.5"
 
-#include <PubSubClient.h>
 #include <TinyGsmClient.h>
-#include <ArduinoJson.h>
-#include <TimeLib.h>
 
 const char apn[] = "internet";
 const char gprsUser[] = "";
@@ -25,22 +21,13 @@ TinyGsm modem(SerialAT);
 #endif
 
 TinyGsmClient client(modem);
-PubSubClient mqtt(client);
-
 
 // ESP32 and SIM800l pins
-#define MODEM_TX 26
-#define MODEM_RX 27
-#define MODEM_RST 14
-#define MODEM_DTR 25
-#define MODEM_RING 34
-
-uint32_t lastReconnectAttempt = 0;
-long lastMsg = 0;
-float lat = 0;
-float lng = 0;
-StaticJsonDocument<256> doc;
-unsigned long timestamp;
+#define MODEM_TX 26     // mandatory pin
+#define MODEM_RX 27     // mandatory pin
+#define MODEM_RST 14    // optional 
+#define MODEM_DTR 25    // optional
+#define MODEM_RING 34   // optional
 
 
 void setup() {
@@ -115,14 +102,14 @@ void loop() {
   static unsigned long lastPrint = 0;
   if (millis() - lastPrint > 5000) { // every 5 seconds
     int signal = modem.getSignalQuality();
-    SerialMon.print("Signal Quality (0–31): ");
+    SerialMon.print("Signal Quality (0-31): ");
     SerialMon.println(signal);
 
     // Optional: Check if still connected
     if (!modem.isNetworkConnected()) {
-      SerialMon.println("⚠️ Network disconnected!");
+      SerialMon.println("Network disconnected!");
     } else {
-      SerialMon.println("✅ Network OK");
+      SerialMon.println("Network OK");
     }
 
     lastPrint = millis();
