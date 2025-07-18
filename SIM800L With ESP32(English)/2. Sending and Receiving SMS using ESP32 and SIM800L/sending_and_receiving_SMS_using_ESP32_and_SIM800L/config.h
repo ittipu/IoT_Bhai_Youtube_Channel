@@ -1,5 +1,5 @@
 // put your phone number with country code for sending SMS
-#define ADMIN_NUMBER "+8801715497977" 
+#define ADMIN_NUMBER "" 
 
 // ESP32 and SIM800l pins
 #define MODEM_TX 26
