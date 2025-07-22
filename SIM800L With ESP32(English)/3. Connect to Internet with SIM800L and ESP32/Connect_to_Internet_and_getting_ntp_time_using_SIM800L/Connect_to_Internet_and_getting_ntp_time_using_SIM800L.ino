@@ -31,8 +31,6 @@ void setup() {
   SerialAT.begin(115200, SERIAL_8N1, MODEM_TX, MODEM_RX);
   delay(3000);
   SerialMon.println("Initializing modem ...");
-  modem.restart();
-  delay(3000);
   modem.init();
   if (GSM_PIN && modem.getSimStatus() != 3) {
     modem.simUnlock(GSM_PIN);
@@ -40,7 +38,8 @@ void setup() {
   String modemInfo = modem.getModemInfo();
   SerialMon.print("Modem Info: ");
   SerialMon.println(modemInfo);
-  SerialMon.print("Waiting for network...");
+  SerialMon.print("Wait 10s,for network...");
+  delay(10000);
   if (!modem.waitForNetwork()) {
     SerialMon.println(" fail");
     delay(10000);  // wait 10s, for connected to network successfully
@@ -53,13 +52,15 @@ void setup() {
   String imei = modem.getIMEI();
   SerialMon.print("IMEI: ");
   SerialMon.println(imei);
+  delay(500);
   String operatorName = modem.getOperator();
   SerialMon.print("Operator: ");
   SerialMon.println(operatorName);
+  delay(500);
   int signalQuality = modem.getSignalQuality();  // Signal quality (0–31, 99 = not known)
   SerialMon.print("Signal Quality (0-31): ");
   SerialMon.println(signalQuality);
-
+  delay(500);
   SerialMon.print("Connecting to APN: ");
   SerialMon.print(apn);
   if (!modem.gprsConnect(apn, gprsUser, gprsPass)) {
@@ -70,6 +71,10 @@ void setup() {
   if (modem.isGprsConnected()) {
     SerialMon.println("GPRS connected");
   }
+  // Local IP
+  IPAddress localIP = modem.localIP();
+  SerialMon.print("Local IP: ");
+  SerialMon.println(localIP);
   DBG("Asking modem to sync with NTP");
   modem.NTPServerSync("132.163.96.5", timezoneParam);
 }
