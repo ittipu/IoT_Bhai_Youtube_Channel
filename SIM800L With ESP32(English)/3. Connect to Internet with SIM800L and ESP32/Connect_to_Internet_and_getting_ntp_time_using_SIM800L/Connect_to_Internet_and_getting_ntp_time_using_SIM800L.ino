@@ -1,4 +1,9 @@
 #define TINY_GSM_MODEM_SIM800
+#define SerialMon Serial
+#define TINY_GSM_DEBUG SerialMon
+#define SerialAT Serial1
+#define GSM_PIN ""
+
 #include <TinyGsmClient.h>
 #include <TimeLib.h>
 #include "config.h"
@@ -19,17 +24,19 @@ void setup() {
   SerialMon.begin(115200);
   delay(1000);
   pinMode(MODEM_RST, OUTPUT);
-  digitalWrite(MODEM_RST, LOW);
-  delay(100);
   digitalWrite(MODEM_RST, HIGH);
   delay(1000);
+  digitalWrite(MODEM_RST, LOW);
+  delay(1000);
+  digitalWrite(MODEM_RST, HIGH);
+  delay(1000);
+
   pinMode(MODEM_DTR, OUTPUT);
   digitalWrite(MODEM_DTR, HIGH);
   pinMode(MODEM_RING, INPUT);
 
   SerialMon.println("Wait ...");
   SerialAT.begin(115200, SERIAL_8N1, MODEM_TX, MODEM_RX);
-  delay(3000);
   SerialMon.println("Initializing modem ...");
   modem.init();
   if (GSM_PIN && modem.getSimStatus() != 3) {
@@ -38,29 +45,34 @@ void setup() {
   String modemInfo = modem.getModemInfo();
   SerialMon.print("Modem Info: ");
   SerialMon.println(modemInfo);
-  SerialMon.print("Wait 10s,for network...");
-  delay(10000);
-  if (!modem.waitForNetwork()) {
+
+  SerialMon.print("Wait for network...");
+  if (!modem.waitForNetwork(600000L, true)) {
     SerialMon.println(" fail");
-    delay(10000);  // wait 10s, for connected to network successfully
+    delay(10000);
     return;
   }
   SerialMon.println(" success");
+
   if (modem.isNetworkConnected()) {
     DBG("Network connected");
   }
+
   String imei = modem.getIMEI();
   SerialMon.print("IMEI: ");
   SerialMon.println(imei);
   delay(500);
+
   String operatorName = modem.getOperator();
   SerialMon.print("Operator: ");
   SerialMon.println(operatorName);
   delay(500);
-  int signalQuality = modem.getSignalQuality();  // Signal quality (0–31, 99 = not known)
+
+  int signalQuality = modem.getSignalQuality();
   SerialMon.print("Signal Quality (0-31): ");
   SerialMon.println(signalQuality);
   delay(500);
+
   SerialMon.print("Connecting to APN: ");
   SerialMon.print(apn);
   if (!modem.gprsConnect(apn, gprsUser, gprsPass)) {
@@ -71,7 +83,6 @@ void setup() {
   if (modem.isGprsConnected()) {
     SerialMon.println("GPRS connected");
   }
-  // Local IP
   IPAddress localIP = modem.localIP();
   SerialMon.print("Local IP: ");
   SerialMon.println(localIP);
