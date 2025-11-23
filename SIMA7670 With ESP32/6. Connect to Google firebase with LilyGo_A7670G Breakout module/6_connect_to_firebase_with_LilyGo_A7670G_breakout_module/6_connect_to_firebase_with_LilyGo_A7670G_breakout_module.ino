@@ -46,7 +46,7 @@ const char gprsPass[] = "";
 #include <DHT.h>
 
 // The API key can be obtained from Firebase console > Project Overview > Project settings.
-#define API_KEY "AIzaSyAnZgcV3Dl6KUIlopeB3BvWN3RaXMRrOx8"
+#define API_KEY ""
 // User Email and password that already registerd or added in your project.
 #define USER_EMAIL "test@email.com"
 #define USER_PASSWORD "123456"
