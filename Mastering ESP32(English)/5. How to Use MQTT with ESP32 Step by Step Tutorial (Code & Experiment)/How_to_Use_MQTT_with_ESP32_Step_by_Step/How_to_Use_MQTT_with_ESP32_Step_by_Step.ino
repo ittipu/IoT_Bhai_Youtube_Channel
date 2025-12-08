@@ -15,11 +15,11 @@
 // ==========================================
 // 1. CONFIGURATION (Edit these)
 // ==========================================
-const char* ssid = "tipu_pc";
-const char* password = "tipu1234@";
+const char* ssid = "";
+const char* password = "";
 
 // MQTT Broker Settings (Using public HiveMQ for demo, change for production)
-const char* mqtt_server = "172.105.149.22";
+const char* mqtt_server = "broker.hivemq.com";
 const int mqtt_port = 1883; 
 const char* mqtt_user = ""; // Leave blank for public brokers
 const char* mqtt_pass = "";
