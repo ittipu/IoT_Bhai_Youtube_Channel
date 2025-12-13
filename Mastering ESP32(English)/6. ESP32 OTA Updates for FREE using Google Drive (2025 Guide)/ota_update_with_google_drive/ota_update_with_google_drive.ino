@@ -7,7 +7,7 @@
 const char* ssid = "IoT";
 const char* password = "tipu1234@";
 
-const char* currentFirmwareVersion = "1.0.2";
+const char* currentFirmwareVersion = "1.0.1";
 
 const char* firmwareUrl = "https://drive.google.com/uc?export=download&id=1B_R1mwUwoJGR5JxRzpSR75u7bUwrTzuH";
 const char* versionUrl = "https://docs.google.com/document/d/1h3gwOIR0EKs_LWNwswSupTjut7S1My2WrZTYzmVuSug/export?format=txt";
