@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IoT Firmware Manager</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input { display: block; margin: 10px 0; width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #007bff; color: white; padding: 10px; border: none; width: 100%; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .status { background: #e9ecef; padding: 10px; margin-bottom: 20px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>🚀 Update ESP32 Firmware</h2>
+    
+    <div class="status">
+        <strong>Current Server Version:</strong> {{ version }}<br>
+        <small>Download URL: /api/firmware.bin</small>
+    </div>
+
+    <div class="card">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label>New Version Number (e.g., 1.0.5):</label>
+            <input type="text" name="version" required placeholder="1.0.5">
+            
+            <label>Select Firmware (.bin):</label>
+            <input type="file" name="firmware" accept=".bin" required>
+            
+            <button type="submit">Upload & Deploy</button>
+        </form>
+    </div>
+</body>
+</html>
