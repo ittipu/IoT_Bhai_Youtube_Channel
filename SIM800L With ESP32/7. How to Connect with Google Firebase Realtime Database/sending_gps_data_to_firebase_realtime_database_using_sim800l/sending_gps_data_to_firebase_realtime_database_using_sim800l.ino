@@ -3,9 +3,6 @@
 #define SerialAT Serial2
 #define SerialGPS Serial1
 #define TINY_GSM_DEBUG SerialMon
-#define GSM_PIN ""
-
-
 // set GSM PIN, if any
 #define GSM_PIN ""
 
