@@ -5,7 +5,7 @@
 #define GSM_PIN ""
 #include <TinyGsmClient.h>
 
-#define ADMIN_NUMBER "Put Your Phone Number"
+#define ADMIN_NUMBER "" // Put your phone number with country code
 
 #ifdef DUMP_AT_COMMANDS
 #include <StreamDebugger.h>
