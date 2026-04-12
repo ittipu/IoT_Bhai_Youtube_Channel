@@ -6,7 +6,7 @@ import machine
 WAIT_FOR_SIM_INIT_TIMEOUT = 20  # seconds
 WAIT_FOR_NETWORK_TIMEOUT = 30   # seconds
 
-phone_number = "01715497977"
+phone_number = "PUT_YOUR_PHONE_NUMBER"
 
 # LED pin for indication
 led = Pin(27, Pin.OUT)
