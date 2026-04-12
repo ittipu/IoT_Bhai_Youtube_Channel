@@ -6,7 +6,7 @@ WAIT_FOR_NETWORK_TIMEOUT = 30  # seconds
 
 recipient_number = ""
 message_content = ""
-admin_number = "+8801715497977"
+admin_number = "PUT_YOUR_PHONE_NUMBER"
 message_to_send = "A9G ready"
 
 
