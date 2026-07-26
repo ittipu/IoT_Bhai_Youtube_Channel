@@ -13,7 +13,7 @@ const char apn[]      = "internet";
 const char gprsUser[] = "";
 const char gprsPass[] = "";
 
-#define ADMIN_NUMBER "+8801750127169"
+#define ADMIN_NUMBER ""
 
 #ifdef DUMP_AT_COMMANDS
 #include <StreamDebugger.h>
